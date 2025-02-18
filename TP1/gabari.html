@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Modèle du site</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            margin: 0 auto;
+            width: 740px;
+            border-collapse: collapse;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <table border="1">
+        <!-- Entête : Logo et top menu -->
+        <tr>
+            <td colspan="2">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <!-- Placez ici votre logo -->
+                            <img src="logo.png" alt="Logo">
+                        </td>
+                        <td align="right">
+                            <a href="index.html">Accueil</a> |
+                            <a href="petit-dejeuner.html">Petit Déjeuner</a> |
+                            <a href="dejeuner.html">Déjeuner</a> |
+                            <a href="diner.html">Dîner</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <!-- Bannière -->
+        <tr>
+            <td colspan="2">
+                <img src="banniere.jpg" alt="Bannière" width="740">
+            </td>
+        </tr>
+        <tr>
+            <!-- Menu de gauche -->
+            <td width="200" valign="top">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="petit-dejeuner.html">Petit Déjeuner</a></li>
+                    <li><a href="dejeuner.html">Déjeuner</a></li>
+                    <li><a href="diner.html">Dîner</a></li>
+                </ul>
+            </td>
+            <!-- Zone de contenu -->
+            <td valign="top">
+                <!-- Ici vous inclurez le contenu spécifique à chaque page -->
+                <div id="contenu">
+                    Contenu de la page
+                </div>
+            </td>
+        </tr>
+        <!-- Pied de page -->
+        <tr>
+            <td colspan="2" align="center">
+                <p>Pied de page</p>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
