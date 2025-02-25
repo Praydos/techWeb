@@ -8,6 +8,9 @@ Créer une page web simple avec deux champs de texte et un bouton. Lorsque l’u
 - Deux `<input type="text">` pour saisir deux textes différents.
 - Un `<button>` qui, au clic, exécute une fonction JavaScript.
 - La fonction JavaScript récupère la valeur du premier champ, la stocke dans une variable temporaire, puis copie la valeur du deuxième champ dans le premier, et enfin remet la valeur temporaire dans le deuxième champ.
+- ![image](https://github.com/user-attachments/assets/b149577b-3eb8-4d94-8c33-97a8dce3d118)
+![image](https://github.com/user-attachments/assets/710e5188-82aa-4c22-85df-497f8d003820)
+
 
 ### Points Clés
 1. **HTML** :  
@@ -41,6 +44,8 @@ Développer une calculatrice basique qui réalise les **opérations arithmétiqu
   3. `résultat` (en lecture seule)  
 - Quatre `<button>` pour chaque opération : `+`, `-`, `*`, `/`.
 - Une fonction JavaScript `calculate(operation)` qui calcule le résultat selon l’opération choisie.
+- ![image](https://github.com/user-attachments/assets/3f2a585d-a6f8-45ca-8fce-eb31c465bf0c)
+
 
 ### Points Clés
 1. **HTML** :  
@@ -93,6 +98,9 @@ Développer une **mini-application web** qui calcule l’IMC (Indice de Masse Co
 4. **Affichage**  
    - L’IMC est arrondi avec `toFixed(2)` (ou tout autre précision souhaitée).  
    - On détermine la catégorie de l’utilisateur et on l’affiche (ex. « Surpoids »).
+   - ![image](https://github.com/user-attachments/assets/fcc63e2f-47ad-427a-aa0f-4d50fb8b3902)
+      ![image](https://github.com/user-attachments/assets/cbdb8115-6afa-404a-9703-c13c469e414e)
+
 
 ### Conclusion
 L’exercice montre comment **intégrer une formule mathématique** dans un script, vérifier la cohérence des données et adapter
