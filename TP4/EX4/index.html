@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculatrice Scientifique</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(6, 60px);
+            gap: 10px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .display {
+            grid-column: 1 / -1;
+            /* Occupe toute la largeur */
+            height: 40px;
+            font-size: 1.2em;
+            text-align: right;
+            padding-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button {
+            height: 40px;
+            font-size: 1em;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background: #e0e0e0;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #d0d0d0;
+        }
+
+        /* Exemples pour colorer certains boutons */
+        .operator {
+            background-color: #f7b731;
+        }
+
+        .operator:hover {
+            background-color: #f5a623;
+        }
+
+        .equals {
+            background-color: #007BFF;
+            color: #fff;
+            grid-column: span 1;
+        }
+
+        .equals:hover {
+            background-color: #0056b3;
+        }
+
+        .clear {
+            background-color: #ff7675;
+        }
+
+        .clear:hover {
+            background-color: #ff4d4d;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="calculator">
+        <!-- Zone d'affichage -->
+        <input type="text" id="display" class="display" readonly />
+
+        <!-- Ligne 1 -->
+        <button onclick="appendValue('(')">(</button>
+        <button onclick="appendValue(')')">)</button>
+        <button onclick="appendValue('%')">%</button>
+        <button class="clear" onclick="clearDisplay()">CE</button>
+        <button onclick="toggleInv()" id="invBtn">Inv</button>
+        <button onclick="appendTrig('sin')">sin</button>
+
+        <!-- Ligne 2 -->
+        <button onclick="appendTrig('cos')">cos</button>
+        <button onclick="appendTrig('tan')">tan</button>
+        <button onclick="appendTrig('log')">log</button>
+        <button onclick="appendTrig('e')">e</button>
+        <button onclick="appendValue('^2')">x²</button>
+        <button onclick="appendValue('^')">xⁿ</button>
+
+        <!-- Ligne 3 -->
+        <button onclick="appendValue('7')">7</button>
+        <button onclick="appendValue('8')">8</button>
+        <button onclick="appendValue('9')">9</button>
+        <button class="operator" onclick="appendValue('/')">÷</button>
+        <button class="operator" onclick="appendValue('*')">×</button>
+        <button onclick="appendValue('Math.sqrt(')">√</button>
+
+        <!-- Ligne 4 -->
+        <button onclick="appendValue('4')">4</button>
+        <button onclick="appendValue('5')">5</button>
+        <button onclick="appendValue('6')">6</button>
+        <button class="operator" onclick="appendValue('-')">-</button>
+        <button class="operator" onclick="appendValue('+')">+</button>
+        <button onclick="appendValue('Math.exp(')">EXP</button>
+
+        <!-- Ligne 5 -->
+        <button onclick="appendValue('1')">1</button>
+        <button onclick="appendValue('2')">2</button>
+        <button onclick="appendValue('3')">3</button>
+        <button onclick="appendValue('0')">0</button>
+        <button onclick="appendValue('.')">.</button>
+        <button class="equals" onclick="calculate()">=</button>
+    </div>
+
+    <script>
+        let isInv = false; // Pour gérer la fonction Inverse (Inv)
+
+        // Récupère l'élément d'affichage
+        const display = document.getElementById('display');
+
+        // Ajoute une valeur (caractère) à l'affichage
+        function appendValue(value) {
+            display.value += value;
+        }
+
+        // Vide l'affichage
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        // Bascule entre sin et asin, cos et acos, tan et atan, log et 10^x, etc.
+        // Ex. si l'utilisateur clique sur Inv, on peut changer sin -> asin, cos -> acos, etc.
+        function toggleInv() {
+            isInv = !isInv;
+            const invBtn = document.getElementById('invBtn');
+            invBtn.style.backgroundColor = isInv ? '#bbb' : '';
+        }
+
+        // Ajoute une fonction trig ou log selon le mode Inv ou non
+        function appendTrig(func) {
+            if (!isInv) {
+                // Mode normal
+                switch (func) {
+                    case 'sin': display.value += 'Math.sin('; break;
+                    case 'cos': display.value += 'Math.cos('; break;
+                    case 'tan': display.value += 'Math.tan('; break;
+                    case 'log': display.value += 'Math.log10('; break; // log base 10
+                    case 'e': display.value += 'Math.E'; break;
+                }
+            } else {
+                // Mode inverse
+                switch (func) {
+                    case 'sin': display.value += 'Math.asin('; break;
+                    case 'cos': display.value += 'Math.acos('; break;
+                    case 'tan': display.value += 'Math.atan('; break;
+                    case 'log': display.value += 'Math.pow(10,'; break; // 10^x
+                    case 'e': display.value += 'Math.log('; break;     // log base e (ln)
+                }
+            }
+        }
+
+        // Calcule le résultat en évaluant la chaîne
+        function calculate() {
+            try {
+                // Remplacer certaines écritures usuelles par des écritures JS
+                // x^2 -> x**2, x^n -> x**n
+                let expression = display.value;
+
+                // Gérer la puissance ^2, ^3, etc. (remplace x^2 par x**2, etc.)
+                // On peut faire un replace plus générique, par exemple x^y => x**y
+                // Mais attention aux cas déjà transformés (mieux vaut une regex).
+                // Pour rester simple, on fait un replace direct sur ^:
+                expression = expression.replace(/\^/g, '**');
+
+                // Gérer log base 10 => Math.log10, déjà géré ci-dessus
+                // Gérer la racine carrée => Math.sqrt(, déjà géré ci-dessus
+                // Gérer le pourcentage => /100
+                // On peut faire un replace du symbole % => /100 (sauf si c'est la mod, mais ici on suppose un usage en pourcentage)
+                expression = expression.replace(/%/g, '/100');
+
+                // Évalue l'expression
+                let result = eval(expression);
+
+                // Arrondir un peu (optionnel)
+                if (typeof result === 'number') {
+                    result = parseFloat(result.toFixed(10));
+                }
+
+                display.value = result;
+            } catch (error) {
+                display.value = 'Erreur';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
